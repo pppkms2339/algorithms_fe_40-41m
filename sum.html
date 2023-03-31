@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Tel-Ran</title>
+</head>
+<body>
+	<script>
+		function sum(arr, k) {
+			// Базовый случай
+			if (k == arr.length - 1) {
+				return arr[k];
+			}
+			return arr[k] + sum(arr, k + 1);
+		}
+		function binarySearchIteration(arr, target) {
+			let left = 0;	// левая граница
+			let right = arr.length - 1;	// правая граница
+			while (left <= right) {
+				let mid = Math.floor((left + right) / 2);
+				if (target === arr[mid]) {
+					return mid;
+				} else if (target < arr[mid]) {
+					right = mid - 1;
+				} else {
+					left = mid + 1;
+				}
+			}
+			return -1;
+		}
+		function binarySearchRecursive(arr, target) {
+			return recursive(arr, 0, arr.length - 1, target);
+		}
+		function recursive(arr, left, right, target) {
+			// Базовый случай (искомого элемента нет)
+			if (left > right) {
+				return -1;
+			}
+			let mid = Math.floor((left + right) / 2);
+			// Базовый случай (нашли искомый элемент)
+			if (target === arr[mid]) {
+				return mid;
+			} else if (target < arr[mid]) {
+				return recursive(arr, left, mid - 1, target);
+			} else {
+				return recursive(arr, mid + 1, right, target);
+			}
+		}
+		let array = [2, 4, 6, 8, 10, 11, 12];
+		//alert(sum(array, 0));
+		alert(binarySearchRecursive(array, 11));
+	</script>
+</body>
+</html>
