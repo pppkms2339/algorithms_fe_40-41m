@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tel-Ran</title>
+</head>
+<body>
+<script>
+    function fact(n) {
+        if (n === 1) {
+            return 1;
+        }
+        return fact(n - 1) * n;
+    }
+
+    function fibonacci(n) {
+        if (n < 2) {
+            return 1;
+        }
+        return fibonacci(n - 2) + fibonacci(n - 1);
+    }
+
+    // Метод мемоизации
+    function fibonacci2(n, arr) {
+        if (arr[n] !== -1) {
+            return arr[n];
+        }
+        if (n < 2) {
+            return 1;
+        }
+        arr[n] = fibonacci2(n - 2, arr) + fibonacci2(n - 1, arr);
+        return arr[n];
+    }
+
+    function fibonacci3(n) {
+        if (n < 2) {
+            return 1;
+        }
+        let arr = [1, 1];
+        for (let i = 2; i <= n; i++) {
+            arr[i] = arr[i - 2] + arr[i - 1];
+        }
+        return arr[n];
+    }
+
+    let n = 40;
+
+    console.log(fibonacci(n));
+
+    let arr = [];
+    for (let i = 0; i < n + 1; i++) {
+        arr.push(-1);
+    }
+    arr[0] = arr[1] = 1;
+    console.log(fibonacci2(n, arr));
+
+    console.log(fibonacci3(n));
+
+</script>
+</body>
+</html>
