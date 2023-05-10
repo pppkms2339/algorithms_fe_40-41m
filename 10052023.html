@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tel-Ran</title>
+</head>
+<body>
+<script>
+    let n = 4;
+    let m = 5;
+    let array = [];
+    let w = [];
+    for (let i = 0; i < n; i++) {
+        array[i] = [];
+        w[i] = [];
+        for (let j = 0; j < m; j++) {
+            array[i].push(Math.floor(10 * Math.random() + 1));
+            w[i].push(0);
+        }
+    }
+    w[0][0] = array[0][0];
+    // Инициализируем нулевую строку
+    for (let j = 1; j < m; j++) {
+        w[0][j] = w[0][j - 1] + array[0][j];
+    }
+    // Инициализируем нулевой столбец
+    for (let i = 1; i < n; i++) {
+        w[i][0] = w[i - 1][0] + array[i][0];
+    }
+
+    for (let i = 1; i < n; i++) {
+        for (let j = 1; j < m; j++) {
+            w[i][j] = Math.min(w[i - 1][j], w[i - 1][j - 1], w[i][j - 1]) + array[i][j];
+        }
+    }
+    // TODO Вывести путь, который дает этот минимум, чтобы можно было проверять решение
+    console.log(array);
+    console.log(w);
+</script>
+</body>
+</html>

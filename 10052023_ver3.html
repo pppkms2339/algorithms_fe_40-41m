@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Tel-Ran Queue</title>
+</head>
+<body>
+<script>
+    class Node {
+        value;
+        next;
+    }
+    class Queue {
+        #head = null;
+        #tail = null;
+
+        add(value) {
+            let temp = new Node();
+            temp.value = value;
+            if (this.isEmpty()) {
+                // Если очередь пустая
+                this.#head = temp;
+            } else {
+                this.#tail.next = temp;
+            }
+            this.#tail = temp;
+        }
+
+        remove() {
+            let value = this.#head.value;
+            if (this.#head === this.#tail) {
+                // В очереди один элемент
+                this.#head = null;
+                this.#tail = null;
+            } else {
+                this.#head = this.#head.next;
+            }
+            return value;
+        }
+
+        isEmpty() {
+            return (this.#head === null || this.#tail === null);
+        }
+
+    }
+    let queue = new Queue();
+    queue.add(10);
+    queue.add("hello");
+    queue.add(3.14);
+    while (!queue.isEmpty()) {
+        console.log(queue.remove());
+    }
+    console.log(queue.isEmpty());
+
+</script>
+</body>
+</html>
