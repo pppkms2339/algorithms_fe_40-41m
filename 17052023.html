@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Tel-Ran LinkedList</title>
+</head>
+<body>
+<script>
+    class Node {
+        value;
+        next = null;
+    }
+
+    class LinkedList {
+        #head = null;
+
+        pushToHead(data) {
+            let temp = new Node();
+            temp.value = data;
+            temp.next = this.#head;
+            this.#head = temp;
+        }
+
+        pushToTail(data) {
+            let temp = new Node();
+            temp.value = data;
+            if (this.#head === null) {
+                temp = this.#head;
+                return;
+            }
+            let t = this.#head;
+            while (t.next !== null) {
+                t = t.next;
+            }
+            // После этого цикла t указывает на tail
+            t.next = temp;
+        }
+
+        pushToIndex(data, index) {
+            if (index <= 0) {
+                this.pushToHead(data);
+                return;
+            }
+            let temp = new Node();
+            temp.value = data;
+            // Найдем в списке элемент, после которого должен
+            // быть вставлен temp
+            let count = 0;
+            let t = this.#head;
+            while (t.next !== null) {
+                if (count === index - 1) {
+                    break;
+                }
+                count++;
+                t = t.next;
+            }
+            // Теперь t указываем на предыдущий элемент
+            temp.next = t.next;
+            t.next = temp;
+        }
+
+        print() {
+            let t = this.#head;
+            while (t !== null) {
+                console.log(t.value);
+                t = t.next;
+            }
+        }
+
+        size() {
+            let count = 0;
+            let t = this.#head;
+            while (t !== null) {
+                count++;
+                t = t.next;
+            }
+            return count;
+        }
+
+        get(index) {
+            if (this.#head === null) {
+                return "List is empty";
+            }
+            if (index < 0) {
+                return this.#head.value;
+            }
+            // Найдем в списке элемент с нужным индексом
+            let count = 0;
+            let t = this.#head;
+            while (t.next !== null && count !== index) {
+                count++;
+                t = t.next;
+            }
+            // Сейчас t указываем на элемент с индексом index
+            return t.value;
+        }
+
+        remove(index) {
+
+        }
+
+        removeFromHead() {
+
+        }
+
+        removeFromTail() {
+            
+        }
+
+    }
+
+    let list = new LinkedList();
+    console.log("size = " + list.size());
+    console.log(list.get(3));
+    list.pushToHead(10);
+    list.pushToTail(20);
+    list.pushToIndex(5, -10);
+    list.pushToIndex(15, 2);
+    list.pushToIndex(30, 10);
+    list.print();
+    console.log("size = " + list.size());
+    console.log(list.get(4));
+    console.log(list.get(-5));
+    console.log(list.get(40));
+</script>
+</body>
+</html>

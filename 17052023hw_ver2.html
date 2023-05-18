@@ -113,6 +113,21 @@
         field[row][column] = 0;
     }
 
+    function print(field) {
+        for (let i = 0; i < 8; i++) {
+            let str = "";
+            for (let j = 0; j < 8; j++) {
+                if (field[i][j] === -1) {
+                    str = str + "X";
+                } else {
+                    str = str + "O";
+                }
+            }
+            console.log(str);
+        }
+    }
+
+    let count = 0;
     let field = [];
     for (let i = 0; i < 8; i++) {
         field[i] = [];
@@ -130,8 +145,6 @@
                 // Клетка свободная - ставим туда ферзя
                 addQueen(row, column, field);
                 queens.push(column);
-                row++;
-                column = 0;
                 f = true;
                 break;
             }
@@ -139,6 +152,10 @@
         }
         if (!f) {
             // Если в текущей строке не удалось поставить ферзя
+            if (queens.isEmpty()) {
+                // Извлекать уже нечего
+                break;
+            }
             column = queens.pop();
             removeQueen(row - 1, column, field);
             row--;
@@ -146,15 +163,19 @@
         } else {
             // В текущей строке удалось поставить ферзя - идем к следующей строке
             // Проверим, что мы уже поставили 8-го ферзя, тогда решение окончено
-            if (row === 8) {
-                break;
+            // Выводим это решение на экран и ищем следующее
+            if (row === 7) {
+                count++;
+                console.log(count);
+                print(field);
+                column = queens.pop();
+                removeQueen(row, column, field);
+                column++;
+            } else {
+                row++;
+                column = 0;
             }
         }
-    }
-    row = 7;
-    while (!queens.isEmpty()) {
-        console.log("(" + row + ", " + queens.pop() + ")");
-        row--;
     }
 
 </script>
